@@ -1,0 +1,721 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+body {
+  @apply bg-white text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100;
+  overflow-x: hidden;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   HIDE SCROLLBARS - Global Scrollbar Hiding Utility
+   ─────────────────────────────────────────────────────────────────────────
+   Removes visible scrollbars from all elements while preserving full scrolling
+   functionality across all browsers and input methods.
+   
+   Compatible with:
+   - Chrome/Edge (webkit)
+   - Firefox
+   - Safari
+   - Mobile browsers
+   
+   Preserves scrolling via:
+   - Mouse wheel
+   - Trackpad
+   - Touch devices
+   - Keyboard (Arrow keys, Page Up/Down, Space)
+   ───────────────────────────────────────────────────────────────────────── */
+
+/* Hide scrollbars on html element */
+html, html.dark {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+html.dark::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* Hide scrollbars on body */
+body {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* Reusable .hide-scrollbar utility class for any element */
+.hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* Ensure all overflow elements hide scrollbars */
+[style*="overflow"]::-webkit-scrollbar {
+  display: none;
+}
+
+[style*="overflow"] {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+::selection {
+  background: rgba(249, 115, 22, 0.2);
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(18px);
+}
+
+.dark .glass {
+  background: rgba(15, 23, 42, 0.72);
+}
+
+.grid-pattern {
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+.hero-dots {
+  background-image: radial-gradient(rgba(148, 163, 184, 0.16) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(0, -10px, 0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.8s ease-out both;
+}
+
+/* Validation rules tooltip popover entrance animation */
+@keyframes tooltip-in {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(4px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
+
+.animate-tooltip-in {
+  animation: tooltip-in 0.15s ease-out both;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float 8s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float 7s ease-in-out infinite;
+  animation-delay: 1.2s;
+}
+
+.scroll-indicator {
+  width: 28px;
+  height: 48px;
+  z-index: 10;
+}
+
+.scroll-indicator-mouse {
+  position: relative;
+  width: 28px;
+  height: 48px;
+  border: 2px solid rgb(249 115 22);
+  border-radius: 9999px;
+  background: transparent;
+  display: block;
+}
+
+.scroll-indicator-dot {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: rgb(249 115 22);
+  transform: translateX(-50%);
+  animation: scroll-indicator-dot 1.6s ease-in-out infinite;
+}
+
+.scroll-indicator:hover .scroll-indicator-mouse {
+  box-shadow: 0 0 0 1px rgba(249, 115, 22, 0.14);
+}
+
+@keyframes scroll-indicator-dot {
+  0% {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+
+  55% {
+    transform: translateX(-50%) translateY(18px);
+    opacity: 0.55;
+  }
+
+  100% {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes typewriter-cycle {
+  0%,
+  10% {
+    width: 0;
+  }
+
+  35%,
+  60% {
+    width: 5ch;
+  }
+
+  85%,
+  100% {
+    width: 0;
+  }
+}
+
+.typewriter-word {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: bottom;
+  width: 0;
+  animation: typewriter-cycle 4s steps(5) infinite;
+}
+
+@keyframes workflow-icon-cycle {
+  0%,
+  12%,
+  100% {
+    color: rgb(100 116 139);
+    transform: scale(1);
+  }
+
+  16%,
+  20% {
+    color: rgb(249 115 22);
+    transform: scale(1.1);
+  }
+}
+
+@keyframes workflow-paper-slide {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(2px);
+  }
+}
+
+@keyframes workflow-branch-lines {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.04);
+  }
+}
+
+@keyframes workflow-rocket-launch {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes workflow-qr-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.04);
+  }
+}
+
+@keyframes workflow-inbox {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(2px);
+  }
+}
+
+@keyframes workflow-bars {
+  0%,
+  100% {
+    transform: scaleY(0.96);
+  }
+
+  50% {
+    transform: scaleY(1.05);
+  }
+}
+
+.workflow-step-icon {
+  animation: workflow-icon-cycle 18s linear infinite;
+  animation-delay: var(--workflow-delay);
+}
+
+.animate-workflow-paper {
+  animation: workflow-paper-slide 5s ease-in-out infinite;
+}
+
+.animate-workflow-branch {
+  animation: workflow-branch-lines 5.5s ease-in-out infinite;
+}
+
+.animate-workflow-rocket {
+  animation: workflow-rocket-launch 5s ease-in-out infinite;
+}
+
+.animate-workflow-share {
+  animation: workflow-qr-pulse 5.5s ease-in-out infinite;
+}
+
+.animate-workflow-inbox {
+  animation: workflow-inbox 5.5s ease-in-out infinite;
+}
+
+.animate-workflow-bars {
+  animation: workflow-bars 5.5s ease-in-out infinite;
+  transform-origin: bottom;
+}
+
+/* Premium Micro-Interactions keyframes */
+
+/* 1. Drag & Drop card simulation */
+@keyframes drag-ghost {
+  0% { transform: translate3d(0, 0, 0); opacity: 0; }
+  10% { transform: translate3d(0, 0, 0); opacity: 0; }
+  15% { transform: translate3d(0, 0, 0); opacity: 0.95; scale: 1.03; box-shadow: 0 10px 25px rgba(249,115,22,0.2); border-color: rgba(249, 115, 22, 0.5); }
+  45% { transform: translate3d(240px, 60px, 0); opacity: 0.95; scale: 1.03; box-shadow: 0 10px 25px rgba(249,115,22,0.2); border-color: rgba(249, 115, 22, 0.5); }
+  50%, 100% { transform: translate3d(240px, 60px, 0); opacity: 0; scale: 0.95; }
+}
+
+.animate-drag-ghost {
+  animation: drag-ghost 7s ease-in-out infinite;
+}
+
+/* 2. Drop Target Glow Effect */
+@keyframes drop-glow {
+  0%, 43% { border-color: rgba(249, 115, 22, 0.15); box-shadow: none; }
+  45%, 55% { border-color: rgb(249, 115, 22); box-shadow: 0 0 15px rgba(249, 115, 22, 0.2); }
+  57%, 100% { border-color: rgba(249, 115, 22, 0.15); box-shadow: none; }
+}
+
+@keyframes drop-glow-dark {
+  0%, 43% { border-color: rgba(249, 115, 22, 0.2); box-shadow: none; }
+  45%, 55% { border-color: rgb(249, 115, 22); box-shadow: 0 0 15px rgba(249, 115, 22, 0.15); }
+  57%, 100% { border-color: rgba(249, 115, 22, 0.2); box-shadow: none; }
+}
+
+.animate-drop-glow {
+  animation: drop-glow 7s ease-in-out infinite;
+}
+
+.dark .animate-drop-glow {
+  animation: drop-glow-dark 7s ease-in-out infinite;
+}
+
+/* 3. Field Cards (Left side) Floating Delay Animations */
+@keyframes field-float-1 {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+@keyframes field-float-2 {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+@keyframes field-float-3 {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+@keyframes field-float-4 {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+.animate-field-1 { animation: field-float-1 5s ease-in-out infinite; }
+.animate-field-2 { animation: field-float-2 6s ease-in-out infinite; animation-delay: 0.8s; }
+.animate-field-3 { animation: field-float-3 5.5s ease-in-out infinite; animation-delay: 1.5s; }
+.animate-field-4 { animation: field-float-4 6.5s ease-in-out infinite; animation-delay: 0.4s; }
+
+/* 4. Smooth Fade-in Utility */
+@keyframes fade-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+.animate-fade-in {
+  animation: fade-in 0.2s ease-out forwards;
+}
+
+/* 5. Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .animate-drag-ghost,
+  .animate-drop-glow,
+  .animate-field-1,
+  .animate-field-2,
+  .animate-field-3,
+  .animate-field-4,
+  .animate-float,
+  .animate-float-slow,
+  .animate-float-delayed,
+  .animate-pulse,
+  .typewriter-word {
+    animation: none !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* 6. Hidden Scrollbar Utility Class */
+/* Hides scrollbars while preserving all scrolling functionality */
+/* Compatible with: Chrome, Edge, Firefox, Safari */
+.hide-scrollbar {
+  /* Chrome, Edge, and Safari */
+  -webkit-scrollbar-width: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* Firefox */
+.hide-scrollbar {
+  scrollbar-width: none;
+}
+
+/* IE and Edge */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+}
+
+
+/* Firefox scrollbar */
+/* * {
+  scrollbar-width: thin;
+  scrollbar-color: #f97316 transparent;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #f97316;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #ea580c;
+}
+
+.dark * {
+  scrollbar-color: #f97316 transparent;
+}
+
+/* 7. Multi-Page Form Animations */
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.3s ease-out;
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 0.3s ease-out;
+}
+
+/* Premium Graphite/Neutral Black Dark Theme Overrides */
+.dark {
+  color-scheme: dark;
+}
+
+/* Body Background & Text */
+.dark body,
+.dark .dark\:bg-slate-950 {
+  background-color: #0A0A0A !important;
+  color: #FAFAFA !important;
+}
+
+/* Backgrounds */
+.dark .dark\:bg-slate-900 {
+  background-color: #111111 !important;
+}
+
+.dark .dark\:bg-slate-800 {
+  background-color: #181818 !important;
+}
+
+.dark .dark\:bg-slate-700 {
+  background-color: #202020 !important;
+}
+
+.dark .dark\:bg-slate-800\/50 {
+  background-color: rgba(24, 24, 24, 0.5) !important;
+}
+
+.dark .dark\:bg-slate-900\/50 {
+  background-color: rgba(17, 17, 17, 0.5) !important;
+}
+
+.dark .dark\:bg-slate-950\/50 {
+  background-color: rgba(10, 10, 10, 0.5) !important;
+}
+
+.dark .dark\:bg-slate-800\/40 {
+  background-color: rgba(24, 24, 24, 0.4) !important;
+}
+
+.dark .dark\:bg-slate-900\/40 {
+  background-color: rgba(17, 17, 17, 0.4) !important;
+}
+
+.dark .dark\:bg-slate-950\/40 {
+  background-color: rgba(10, 10, 10, 0.4) !important;
+}
+
+/* Hovers */
+.dark .dark\:hover\:bg-slate-800:hover,
+.dark .dark\:hover\:bg-slate-800\/50:hover {
+  background-color: #202020 !important;
+}
+
+.dark .dark\:hover\:bg-slate-700:hover,
+.dark .dark\:hover\:bg-slate-700\/50:hover {
+  background-color: #282828 !important;
+}
+
+.dark .dark\:hover\:bg-slate-900:hover,
+.dark .dark\:hover\:bg-slate-900\/50:hover {
+  background-color: #181818 !important;
+}
+
+.dark .dark\:hover\:bg-slate-950:hover,
+.dark .dark\:hover\:bg-slate-950\/50:hover {
+  background-color: #111111 !important;
+}
+
+.dark .dark\:hover\:text-white:hover {
+  color: #ffffff !important;
+}
+
+.dark .dark\:hover\:text-slate-100:hover {
+  color: #FAFAFA !important;
+}
+
+/* Borders */
+.dark .dark\:border-slate-800 {
+  border-color: #2A2A2A !important;
+}
+
+.dark .dark\:border-slate-700 {
+  border-color: #333333 !important;
+}
+
+.dark .dark\:border-slate-900 {
+  border-color: #222222 !important;
+}
+
+.dark .dark\:border-slate-800\/60 {
+  border-color: rgba(42, 42, 42, 0.6) !important;
+}
+
+/* Text Colors */
+.dark .dark\:text-slate-100 {
+  color: #FAFAFA !important;
+}
+
+.dark .dark\:text-slate-200 {
+  color: #D4D4D8 !important;
+}
+
+.dark .dark\:text-slate-300 {
+  color: #A1A1AA !important;
+}
+
+.dark .dark\:text-slate-400 {
+  color: #A1A1AA !important;
+}
+
+.dark .dark\:text-slate-500 {
+  color: #71717A !important;
+}
+
+.dark .dark\:text-slate-600 {
+  color: #52525B !important;
+}
+
+/* Inputs, Textareas, Selects & Placeholders */
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #71717A !important;
+}
+
+.dark input,
+.dark select,
+.dark textarea {
+  color: #FAFAFA !important;
+  background-color: #141414 !important;
+}
+
+.dark input:focus,
+.dark select:focus,
+.dark textarea:focus {
+  border-color: #F97316 !important;
+  box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.2) !important;
+}
+
+/* Glass override */
+.dark .glass {
+  background: rgba(17, 17, 17, 0.72) !important;
+}
+
+/* Scrollbars track & thumb colors */
+.dark * {
+  scrollbar-color: #f97316 #111111 !important;
+}
+
+/* Grid & Dots styling */
+.dark .grid-pattern {
+  background-image:
+    linear-gradient(rgba(250, 250, 250, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(250, 250, 250, 0.02) 1px, transparent 1px) !important;
+}
+
+.dark .hero-dots {
+  background-image: radial-gradient(rgba(250, 250, 250, 0.04) 1px, transparent 1px) !important;
+}
+
+/* Custom Soft Shadow overrides for premium aesthetic */
+.dark .shadow-soft {
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* Subtle border lines */
+.dark hr {
+  border-color: #2A2A2A !important;
+}
+
+
+/* Custom hover states for Recharts charts */
+.recharts-sector, .recharts-rectangle {
+  transition: opacity 0.15s ease-in-out, filter 0.15s ease-in-out;
+}
+.recharts-sector:hover, .recharts-rectangle:hover {
+  filter: brightness(0.9) saturate(1.2);
+  cursor: pointer;
+}
+
+.animate-fadeIn {
+  animation: fade-in 0.25s ease-out forwards;
+}
+
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-modalIn {
+  animation: modal-in 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Hide scrollbar in modal answers area — scrolling still works */
+.modal-scroll-area::-webkit-scrollbar {
+  display: none;
+}

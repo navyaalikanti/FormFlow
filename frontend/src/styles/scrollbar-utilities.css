@@ -1,0 +1,152 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   Scrollbar Hiding Utilities
+   ─────────────────────────────────────────────────────────────────────────
+   Cross-browser compatible scrollbar hiding with full scrolling support
+   
+   Import this file in your component or main CSS for scrollbar utilities
+   ───────────────────────────────────────────────────────────────────────── */
+
+/* Hide scrollbar - Main utility class */
+.hide-scrollbar {
+  /* Firefox */
+  scrollbar-width: none;
+  
+  /* Chrome, Edge, Safari */
+  -webkit-scrollbar-width: none;
+  -webkit-scrollbar-height: none;
+  
+  /* IE and Edge Legacy */
+  -ms-overflow-style: none;
+}
+
+/* WebKit browsers (Chrome, Safari, Edge) */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+.hide-scrollbar::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+.hide-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Vertical scrolling with hidden scrollbar */
+.hide-scrollbar-vertical {
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.hide-scrollbar-vertical::-webkit-scrollbar {
+  display: none;
+  width: 0;
+}
+
+/* Horizontal scrolling with hidden scrollbar */
+.hide-scrollbar-horizontal {
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.hide-scrollbar-horizontal::-webkit-scrollbar {
+  display: none;
+  height: 0;
+}
+
+/* Both directions with hidden scrollbar */
+.hide-scrollbar-both {
+  overflow: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.hide-scrollbar-both::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* Smooth scrolling with hidden scrollbar */
+.smooth-scroll-hidden {
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.smooth-scroll-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+/* Snap scrolling with hidden scrollbar (for carousels, sliders) */
+.snap-scroll-hidden {
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overflow-x: auto;
+}
+
+.snap-scroll-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+/* Touch scrolling optimized with hidden scrollbar */
+.touch-scroll-hidden {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overflow: auto;
+}
+
+.touch-scroll-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Responsive Variants (if not using Tailwind)
+   ───────────────────────────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .hide-scrollbar-md {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  .hide-scrollbar-md::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .hide-scrollbar-lg {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  .hide-scrollbar-lg::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Dark Mode Support (if not using Tailwind)
+   ───────────────────────────────────────────────────────────────────────── */
+
+.dark .hide-scrollbar,
+.dark .hide-scrollbar-vertical,
+.dark .hide-scrollbar-horizontal,
+.dark .hide-scrollbar-both {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.dark .hide-scrollbar::-webkit-scrollbar,
+.dark .hide-scrollbar-vertical::-webkit-scrollbar,
+.dark .hide-scrollbar-horizontal::-webkit-scrollbar,
+.dark .hide-scrollbar-both::-webkit-scrollbar {
+  display: none;
+}

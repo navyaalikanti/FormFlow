@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: formflow-backend
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=${DATABASE_URL:-postgresql://neondb_owner:npg_N4FGMWSOn3hU@ep-purple-heart-aodaummh-pooler.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY:-formflowwebapp}
+      - JWT_ALGORITHM=${JWT_ALGORITHM:-HS256}
+      - ACCESS_TOKEN_EXPIRE_MINUTES=${ACCESS_TOKEN_EXPIRE_MINUTES:-1440}
+      - CORS_ORIGINS=${CORS_ORIGINS:-http://localhost,http://localhost:3000,http://localhost:5173,http://localhost:8080}
+      - SUPABASE_URL=${SUPABASE_URL:-https://jtdffhrytuvvtvamlxmi.supabase.co}
+      - SUPABASE_SECRET_KEY=${SUPABASE_SECRET_KEY:-sb_secret_4hc4XR8dxIGv7yz4qCEQBA_PV3yxV3S}
+      - SUPABASE_BUCKET=${SUPABASE_BUCKET:-formflow-files}
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_URL=${VITE_API_URL:-http://localhost:8000/api}
+        - VITE_SUPABASE_URL=${VITE_SUPABASE_URL:-https://jtdffhrytuvvtvamlxmi.supabase.co}
+        - VITE_SUPABASE_PUBLISHABLE_KEY=${VITE_SUPABASE_PUBLISHABLE_KEY:-sb_publishable__qSTiigssrxi5sK5Vxzo4g_IhSl9hT_}
+    container_name: formflow-frontend
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
