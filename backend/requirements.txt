@@ -11,3 +11,5 @@ email-validator==2.2.0
 psycopg2-binary==2.9.10
 python-multipart==0.0.20
 apscheduler==3.10.4
+supabase>=2.0.0
+
