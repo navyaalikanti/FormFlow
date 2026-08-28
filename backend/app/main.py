@@ -32,16 +32,30 @@ def shutdown_event():
     """Shutdown scheduler on application shutdown."""
     shutdown_scheduler()
 
+# Parse origins from settings.cors_origins
 origins = [origin.strip() for origin in settings.cors_origins.split(",") if origin.strip()]
+
+# Ensure local hosts are present in development
+default_local_origins = ["http://localhost:5173", "http://localhost:5174", "http://localhost:3000", "http://localhost:8080"]
+for local_origin in default_local_origins:
+    if local_origin not in origins:
+        origins.append(local_origin)
+
+# Ensure Vercel production origin is present
+vercel_prod_origin = "https://formflow-ebon.vercel.app"
+if vercel_prod_origin not in origins:
+    origins.append(vercel_prod_origin)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins or ["http://localhost:5173", "http://localhost:3000", "http://localhost:8080"],
+    allow_origins=origins,
+    allow_origin_regex=r"https://formflow-.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
     expose_headers=["Content-Disposition"],
 )
+
 
 app.include_router(auth_router, prefix="/api/auth", tags=["Authentication"])
 app.include_router(forms_router, prefix="/api")
