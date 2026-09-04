@@ -79,8 +79,9 @@ export default function LoginCard() {
           {errors.password?.message && <p className="text-sm text-red-500">{errors.password.message}</p>}
         </div>
 
-        <div className="text-sm text-center text-slate-500 dark:text-slate-400">
-          Demo Email: <span className="font-medium text-slate-700 dark:text-slate-300">navyaalikanti@gmail.com</span> <span className="mx-1">|</span> Demo Password: <span className="font-medium text-slate-700 dark:text-slate-300">Navya@12345</span>
+        <div className="flex flex-col gap-1.5 text-sm text-center text-slate-500 dark:text-slate-400">
+          <div>Demo Email: <span className="font-medium text-slate-700 dark:text-slate-300">navyaalikanti@gmail.com</span></div>
+          <div>Demo Password: <span className="font-medium text-slate-700 dark:text-slate-300">Navya@12345</span></div>
         </div>
 
         {serverError && <p className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">{serverError}</p>}
