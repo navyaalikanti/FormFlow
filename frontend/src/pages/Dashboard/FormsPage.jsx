@@ -392,69 +392,71 @@ export default function FormsPage() {
           </div>
         ) : (
           <Card className="overflow-hidden p-0">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-slate-100 dark:border-slate-800">
-                  <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">{t('forms.formName')}</th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">{t('forms.status')}</th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">{t('forms.lastModified')}</th>
-                  <th className="px-6 py-4" />
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
-                {filtered.map((form) => (
-                  <tr
-                    key={form.id}
-                    className="group cursor-pointer transition-colors hover:bg-slate-50 dark:hover:bg-slate-800/50"
-                    onClick={() => navigate(`/dashboard/forms/${form.id}/build`)}
-                  >
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-3">
-                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-brand-500/10 text-brand-500">
-                          <FileText size={16} />
-                        </span>
-                        <div>
-                          <span className="font-semibold text-slate-900 dark:text-white">{form.title}</span>
-                          {form.description && (
-                            <p className="line-clamp-1 text-xs text-slate-400">{form.description}</p>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-slate-100 dark:border-slate-800">
+                    <th className="whitespace-nowrap px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">{t('forms.formName')}</th>
+                    <th className="whitespace-nowrap px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">{t('forms.status')}</th>
+                    <th className="whitespace-nowrap px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">{t('forms.lastModified')}</th>
+                    <th className="px-6 py-4" />
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                  {filtered.map((form) => (
+                    <tr
+                      key={form.id}
+                      className="group cursor-pointer transition-colors hover:bg-slate-50 dark:hover:bg-slate-800/50"
+                      onClick={() => navigate(`/dashboard/forms/${form.id}/build`)}
+                    >
+                      <td className="px-6 py-4">
+                        <div className="flex items-center gap-3">
+                          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-brand-500/10 text-brand-500">
+                            <FileText size={16} />
+                          </span>
+                          <div className="min-w-0">
+                            <span className="font-semibold text-slate-900 dark:text-white">{form.title}</span>
+                            {form.description && (
+                              <p className="line-clamp-1 text-xs text-slate-400">{form.description}</p>
+                            )}
+                          </div>
+                        </div>
+                      </td>
+                      <td className="whitespace-nowrap px-6 py-4">
+                        <div className="flex flex-col gap-1.5 items-start">
+                          <StatusBadge status={getEffectiveStatus(form)} />
+                          {getEffectiveStatus(form) !== 'draft' && getCollectionStatus(form) !== 'accepting' && (
+                            <StatusBadge status={getCollectionStatus(form)} />
                           )}
                         </div>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4">
-                      <div className="flex flex-col gap-1.5 items-start">
-                        <StatusBadge status={getEffectiveStatus(form)} />
-                        {getEffectiveStatus(form) !== 'draft' && getCollectionStatus(form) !== 'accepting' && (
-                          <StatusBadge status={getCollectionStatus(form)} />
-                        )}
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 text-slate-500 dark:text-slate-400">{formatDate(form.updated_at, t)}</td>
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-1 opacity-0 transition-opacity group-hover:opacity-100" onClick={(e) => e.stopPropagation()}>
-                        <button
-                          title={t('forms.editForm')}
-                          onClick={() => navigate(`/dashboard/forms/${form.id}/build`)}
-                          className="rounded-lg p-1.5 text-slate-400 hover:bg-brand-500/10 hover:text-brand-500"
-                        >
-                          <Pencil size={15} />
-                        </button>
-                        <DropdownMenu
-                          form={form}
-                          onEdit={(f) => navigate(`/dashboard/forms/${f.id}/build`)}
-                          onPublish={triggerPublish}
-                          onArchive={handleArchive}
-                          onRestore={handleRestore}
-                          onDuplicate={handleDuplicate}
-                          onDelete={handleDelete}
-                          t={t}
-                        />
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                      </td>
+                      <td className="whitespace-nowrap px-6 py-4 text-slate-500 dark:text-slate-400">{formatDate(form.updated_at, t)}</td>
+                      <td className="whitespace-nowrap px-6 py-4">
+                        <div className="flex items-center gap-1 opacity-90 sm:opacity-0 transition-opacity group-hover:opacity-100" onClick={(e) => e.stopPropagation()}>
+                          <button
+                            title={t('forms.editForm')}
+                            onClick={() => navigate(`/dashboard/forms/${form.id}/build`)}
+                            className="rounded-lg p-1.5 text-slate-400 hover:bg-brand-500/10 hover:text-brand-500"
+                          >
+                            <Pencil size={15} />
+                          </button>
+                          <DropdownMenu
+                            form={form}
+                            onEdit={(f) => navigate(`/dashboard/forms/${f.id}/build`)}
+                            onPublish={triggerPublish}
+                            onArchive={handleArchive}
+                            onRestore={handleRestore}
+                            onDuplicate={handleDuplicate}
+                            onDelete={handleDelete}
+                            t={t}
+                          />
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </Card>
         )}
       </DashboardShell>
