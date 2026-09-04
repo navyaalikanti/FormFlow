@@ -24,10 +24,10 @@ import { SUPPORTED_LANGUAGES } from '../../i18n'
 import Button from '../ui/Button'
 
 const navItems = [
-  { label: 'Dashboard', to: '/dashboard', icon: LayoutDashboard },
-  { label: 'Forms', to: '/dashboard/forms', icon: FileText },
-  { label: 'Responses', to: '/dashboard/responses', icon: Users },
-  { label: 'Audit Logs', to: '/dashboard/audit-logs', icon: ScrollText },
+  { labelKey: 'common.dashboard', to: '/dashboard', icon: LayoutDashboard },
+  { labelKey: 'common.forms', to: '/dashboard/forms', icon: FileText },
+  { labelKey: 'common.responses', to: '/dashboard/responses', icon: Users },
+  { labelKey: 'common.auditLogs', to: '/dashboard/audit-logs', icon: ScrollText },
 ]
 
 export default function DashboardShell({ title, subtitle, children, action }) {
@@ -225,7 +225,7 @@ export default function DashboardShell({ title, subtitle, children, action }) {
               const active = isItemActive(item)
               return (
                 <NavLink
-                  key={item.label}
+                  key={item.labelKey}
                   to={item.to}
                   onClick={() => setMobileMenuOpen(false)}
                   className={[
@@ -237,7 +237,7 @@ export default function DashboardShell({ title, subtitle, children, action }) {
                   end={item.to === '/dashboard'}
                 >
                   <Icon size={18} />
-                  <span>{item.label}</span>
+                  <span>{t(item.labelKey)}</span>
                 </NavLink>
               )
             })}
@@ -312,9 +312,9 @@ export default function DashboardShell({ title, subtitle, children, action }) {
                 const active = isItemActive(item)
                 return (
                   <NavLink
-                    key={item.label}
+                    key={item.labelKey}
                     to={item.to}
-                    title={sidebarCollapsed ? item.label : undefined}
+                    title={sidebarCollapsed ? t(item.labelKey) : undefined}
                     className={[
                       'flex items-center gap-3 rounded-xl py-2.5 text-sm font-medium transition',
                       sidebarCollapsed ? 'justify-center px-0' : 'px-4',
@@ -325,7 +325,7 @@ export default function DashboardShell({ title, subtitle, children, action }) {
                     end={item.to === '/dashboard'}
                   >
                     <Icon size={18} />
-                    {!sidebarCollapsed && <span>{item.label}</span>}
+                    {!sidebarCollapsed && <span>{t(item.labelKey)}</span>}
                   </NavLink>
                 )
               })}

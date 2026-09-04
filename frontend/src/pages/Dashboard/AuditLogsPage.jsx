@@ -79,7 +79,7 @@ export default function AuditLogsPage() {
       })
       .catch((err) => {
         console.error('Failed to fetch audit logs', err)
-        setError('Failed to load audit logs. Please try again.')
+        setError(t('auditLogs.errorLoading'))
       })
       .finally(() => {
         setLoading(false)
@@ -95,27 +95,27 @@ export default function AuditLogsPage() {
     const details = log.details || {}
     switch (log.action) {
       case 'BULK_DELETE_RESPONSES':
-        return `${details.deleted_count || 0} response(s) permanently deleted`
+        return t('auditLogs.details.responsesDeleted', { count: details.deleted_count || 0 })
       case 'DELETE_RESPONSE':
-        return `Response ${details.response_id || ''} deleted`
+        return t('auditLogs.details.responseDeleted', { id: details.response_id || '' })
       case 'PUBLISH_FORM':
-        return `Published version ${details.version_number || ''}`
+        return t('auditLogs.details.publishedVersion', { version: details.version_number || '' })
       case 'RESTORE_VERSION':
-        return `Restored from version ${details.restored_from_version_number || ''} to draft version ${details.version_number || ''}`
+        return t('auditLogs.details.restoredVersion', { from: details.restored_from_version_number || '', to: details.version_number || '' })
       case 'DUPLICATE_FORM':
-        return `Form duplicated to "${details.title || ''}"`
+        return t('auditLogs.details.formDuplicated', { title: details.title || '' })
       case 'CREATE_FORM':
-        return 'Form draft created'
+        return t('auditLogs.details.formDraftCreated')
       case 'UPDATE_FORM':
-        return 'Form details/structure updated'
+        return t('auditLogs.details.formUpdated')
       case 'UNPUBLISH_FORM':
-        return 'Form unpublished'
+        return t('auditLogs.details.formUnpublished')
       case 'ARCHIVE_FORM':
-        return 'Form archived'
+        return t('auditLogs.details.formArchived')
       case 'RESTORE_FORM':
-        return 'Form restored from archived state'
+        return t('auditLogs.details.formRestored')
       default:
-        return details.message || JSON.stringify(details)
+        return details.message ? t('auditLogs.details.fallback', { message: details.message }) : JSON.stringify(details)
     }
   }
 
@@ -135,8 +135,8 @@ export default function AuditLogsPage() {
 
   return (
     <DashboardShell
-      title="Audit Logs"
-      subtitle="Track administrative actions and security events in FormFlow."
+      title={t('auditLogs.title')}
+      subtitle={t('auditLogs.subtitle')}
       action={
         <button
           onClick={fetchLogs}
@@ -144,7 +144,7 @@ export default function AuditLogsPage() {
           className="inline-flex h-11 items-center justify-center rounded-xl border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800"
         >
           <RefreshCw size={15} className={`mr-2 ${loading ? 'animate-spin' : ''}`} />
-          Refresh
+          {t('auditLogs.refresh')}
         </button>
       }
     >
@@ -153,7 +153,7 @@ export default function AuditLogsPage() {
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
           <div className="flex-1">
             <label className="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
-              Filter by Form
+              {t('auditLogs.filterByForm')}
             </label>
             <select
               value={selectedFormId}
@@ -163,7 +163,7 @@ export default function AuditLogsPage() {
               }}
               className="mt-1 block w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-sm text-slate-800 shadow-sm outline-none focus:border-brand-500 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:focus:border-brand-500"
             >
-              <option value="">All Forms</option>
+              <option value="">{t('auditLogs.allForms')}</option>
               {forms.map((f) => (
                 <option key={f.id} value={f.id}>
                   {f.title}
@@ -174,7 +174,7 @@ export default function AuditLogsPage() {
 
           <div className="flex-1">
             <label className="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
-              Filter by Action
+              {t('auditLogs.filterByAction')}
             </label>
             <select
               value={selectedAction}
@@ -184,10 +184,10 @@ export default function AuditLogsPage() {
               }}
               className="mt-1 block w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-sm text-slate-800 shadow-sm outline-none focus:border-brand-500 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:focus:border-brand-500"
             >
-              <option value="">All Actions</option>
-              {Object.entries(ACTION_LABELS).map(([key, value]) => (
+              <option value="">{t('auditLogs.allActions')}</option>
+              {Object.keys(ACTION_LABELS).map((key) => (
                 <option key={key} value={key}>
-                  {value}
+                  {t(`auditLogs.actions.${key}`)}
                 </option>
               ))}
             </select>
@@ -200,7 +200,7 @@ export default function AuditLogsPage() {
         {loading ? (
           <div className="flex min-h-[400px] flex-col items-center justify-center py-12">
             <div className="h-8 w-8 animate-spin rounded-full border-4 border-brand-500 border-t-transparent" />
-            <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">Loading audit logs...</p>
+            <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">{t('auditLogs.loading')}</p>
           </div>
         ) : error ? (
           <div className="flex min-h-[400px] flex-col items-center justify-center p-6 text-center">
@@ -210,15 +210,15 @@ export default function AuditLogsPage() {
               onClick={fetchLogs}
               className="mt-4 rounded-xl bg-brand-500 px-4 py-2 text-sm font-semibold text-white shadow-glow transition hover:bg-brand-600"
             >
-              Try Again
+              {t('auditLogs.tryAgain')}
             </button>
           </div>
         ) : logs.length === 0 ? (
           <div className="flex min-h-[400px] flex-col items-center justify-center p-6 text-center">
             <FileClock className="h-12 w-12 text-slate-300 dark:text-slate-700" />
-            <h3 className="mt-4 text-lg font-bold text-slate-800 dark:text-slate-200">No logs found</h3>
+            <h3 className="mt-4 text-lg font-bold text-slate-800 dark:text-slate-200">{t('auditLogs.noLogsFound')}</h3>
             <p className="mt-1 max-w-sm text-sm text-slate-500 dark:text-slate-400">
-              There are no administrative audit logs matching your current filters.
+              {t('auditLogs.noLogsDesc')}
             </p>
           </div>
         ) : (
@@ -226,11 +226,11 @@ export default function AuditLogsPage() {
             <table className="w-full text-left text-sm text-slate-600 dark:text-slate-400">
               <thead className="border-b border-slate-200 bg-slate-50 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:border-slate-800 dark:bg-slate-900/50 dark:text-slate-400">
                 <tr>
-                  <th className="px-6 py-4">Action</th>
-                  <th className="px-6 py-4">User</th>
-                  <th className="px-6 py-4">Form</th>
-                  <th className="px-6 py-4">Details</th>
-                  <th className="px-6 py-4 text-right">Date/Time</th>
+                  <th className="px-6 py-4">{t('auditLogs.columns.action')}</th>
+                  <th className="px-6 py-4">{t('auditLogs.columns.user')}</th>
+                  <th className="px-6 py-4">{t('auditLogs.columns.form')}</th>
+                  <th className="px-6 py-4">{t('auditLogs.columns.details')}</th>
+                  <th className="px-6 py-4 text-right">{t('auditLogs.columns.dateTime')}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
@@ -245,7 +245,7 @@ export default function AuditLogsPage() {
                           ACTION_COLORS[log.action] || 'bg-slate-100 text-slate-600'
                         }`}
                       >
-                        {ACTION_LABELS[log.action] || log.action}
+                        {t(`auditLogs.actions.${log.action}`, { defaultValue: log.action })}
                       </span>
                     </td>
                     <td className="px-6 py-4.5">
@@ -285,11 +285,11 @@ export default function AuditLogsPage() {
         {total > 0 && (
           <div className="flex items-center justify-between border-t border-slate-200 bg-white px-6 py-4 dark:border-slate-800 dark:bg-slate-900">
             <div className="text-sm text-slate-500 dark:text-slate-400">
-              Showing <span className="font-semibold text-slate-800 dark:text-slate-200">
+              {t('auditLogs.pagination.showing')} <span className="font-semibold text-slate-800 dark:text-slate-200">
                 {(page - 1) * limit + 1}
-              </span> to <span className="font-semibold text-slate-800 dark:text-slate-200">
+              </span> {t('auditLogs.pagination.to')} <span className="font-semibold text-slate-800 dark:text-slate-200">
                 {Math.min(page * limit, total)}
-              </span> of <span className="font-semibold text-slate-800 dark:text-slate-200">{total}</span> logs
+              </span> {t('auditLogs.pagination.of')} <span className="font-semibold text-slate-800 dark:text-slate-200">{total}</span> {t('auditLogs.pagination.logs')}
             </div>
             
             <div className="flex items-center gap-2">
@@ -302,7 +302,7 @@ export default function AuditLogsPage() {
               </button>
               
               <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                Page {page} of {totalPages}
+                {t('auditLogs.pagination.pageOf', { current: page, total: totalPages, defaultValue: `Page ${page} of ${totalPages}` })}
               </span>
               
               <button

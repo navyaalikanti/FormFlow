@@ -39,7 +39,8 @@
     "openLink": "लिंक खोलें",
     "openForm": "फॉर्म खोलें",
     "signingIn": "साइन इन किया जा रहा है...",
-    "creatingAccount": "खाता बनाया जा रहा है..."
+    "creatingAccount": "खाता बनाया जा रहा है...",
+    "auditLogs": "ऑडिट लॉग्स"
   },
   "auth": {
     "login": "लॉग इन करें",
@@ -315,5 +316,58 @@
     "goBack": "वापस जाएं",
     "errorOccurred": "एक त्रुटि हुई",
     "unexpectedError": "कुछ गलत हुआ। कृपया फिर से कोशिश करें।"
+  },
+  "auditLogs": {
+    "title": "ऑडिट लॉग्स",
+    "subtitle": "फॉर्मफ्लो में प्रशासनिक कार्यों और सुरक्षा घटनाओं को ट्रैक करें।",
+    "refresh": "रिफ्रेश करें",
+    "filterByForm": "फॉर्म द्वारा फ़िल्टर करें",
+    "allForms": "सभी फॉर्म",
+    "filterByAction": "कार्रवाई द्वारा फ़िल्टर करें",
+    "allActions": "सभी कार्रवाइयां",
+    "loading": "ऑडिट लॉग लोड हो रहे हैं...",
+    "errorLoading": "ऑडिट लॉग लोड करने में विफल। कृपया पुन: प्रयास करें।",
+    "tryAgain": "पुन: प्रयास करें",
+    "noLogsFound": "कोई लॉग नहीं मिला",
+    "noLogsDesc": "आपके वर्तमान फ़िल्टर से मेल खाने वाले कोई प्रशासनिक ऑडिट लॉग नहीं हैं।",
+    "columns": {
+      "action": "कार्रवाई",
+      "user": "उपयोगकर्ता",
+      "form": "फॉर्म",
+      "details": "विवरण",
+      "dateTime": "दिनांक/समय"
+    },
+    "actions": {
+      "CREATE_FORM": "फॉर्म बनाएं",
+      "PUBLISH_FORM": "फॉर्म प्रकाशित करें",
+      "UNPUBLISH_FORM": "फॉर्म अप्रकाशित करें",
+      "ARCHIVE_FORM": "फॉर्म आर्काइव करें",
+      "RESTORE_FORM": "फॉर्म पुनर्स्थापित करें",
+      "DUPLICATE_FORM": "फॉर्म डुप्लिकेट करें",
+      "UPDATE_FORM": "फॉर्म अपडेट करें",
+      "RESTORE_VERSION": "संस्करण पुनर्स्थापित करें",
+      "DELETE_RESPONSE": "प्रतिक्रिया हटाएं",
+      "BULK_DELETE_RESPONSES": "प्रतिक्रियाएं एक साथ हटाएं"
+    },
+    "details": {
+      "responsesDeleted": "{{count}} प्रतिक्रिया(एं) स्थायी रूप से हटा दी गईं",
+      "responseDeleted": "प्रतिक्रिया {{id}} हटा दी गई",
+      "publishedVersion": "प्रकाशित संस्करण {{version}}",
+      "restoredVersion": "संस्करण {{from}} से ड्राफ्ट संस्करण {{to}} में पुनर्स्थापित किया गया",
+      "formDuplicated": "फॉर्म को \"{{title}}\" में डुप्लिकेट किया गया",
+      "formDraftCreated": "फॉर्म ड्राफ्ट बनाया गया",
+      "formUpdated": "फॉर्म विवरण/संरचना अपडेट की गई",
+      "formUnpublished": "फॉर्म अप्रकाशित किया गया",
+      "formArchived": "फॉर्म आर्काइव किया गया",
+      "formRestored": "फॉर्म आर्काइव स्थिति से पुनर्स्थापित किया गया",
+      "fallback": "{{message}}"
+    },
+    "pagination": {
+      "showing": "दिखा रहा है",
+      "to": "से",
+      "of": "का",
+      "logs": "लॉग्स",
+      "page": "पृष्ठ"
+    }
   }
 }

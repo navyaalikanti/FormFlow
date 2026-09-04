@@ -39,7 +39,8 @@
     "openLink": "Open Link",
     "openForm": "Open Form",
     "signingIn": "Signing in...",
-    "creatingAccount": "Creating account..."
+    "creatingAccount": "Creating account...",
+    "auditLogs": "Audit Logs"
   },
   "auth": {
     "login": "Login",
@@ -458,5 +459,58 @@
     "goBack": "Go Back",
     "errorOccurred": "An error occurred",
     "unexpectedError": "Something went wrong. Please try again."
+  },
+  "auditLogs": {
+    "title": "Audit Logs",
+    "subtitle": "Track administrative actions and security events in FormFlow.",
+    "refresh": "Refresh",
+    "filterByForm": "Filter by Form",
+    "allForms": "All Forms",
+    "filterByAction": "Filter by Action",
+    "allActions": "All Actions",
+    "loading": "Loading audit logs...",
+    "errorLoading": "Failed to load audit logs. Please try again.",
+    "tryAgain": "Try Again",
+    "noLogsFound": "No logs found",
+    "noLogsDesc": "There are no administrative audit logs matching your current filters.",
+    "columns": {
+      "action": "Action",
+      "user": "User",
+      "form": "Form",
+      "details": "Details",
+      "dateTime": "Date/Time"
+    },
+    "actions": {
+      "CREATE_FORM": "Create Form",
+      "PUBLISH_FORM": "Publish Form",
+      "UNPUBLISH_FORM": "Unpublish Form",
+      "ARCHIVE_FORM": "Archive Form",
+      "RESTORE_FORM": "Restore Form",
+      "DUPLICATE_FORM": "Duplicate Form",
+      "UPDATE_FORM": "Update Form",
+      "RESTORE_VERSION": "Restore Version",
+      "DELETE_RESPONSE": "Delete Response",
+      "BULK_DELETE_RESPONSES": "Bulk Delete Responses"
+    },
+    "details": {
+      "responsesDeleted": "{{count}} response(s) permanently deleted",
+      "responseDeleted": "Response {{id}} deleted",
+      "publishedVersion": "Published version {{version}}",
+      "restoredVersion": "Restored from version {{from}} to draft version {{to}}",
+      "formDuplicated": "Form duplicated to \"{{title}}\"",
+      "formDraftCreated": "Form draft created",
+      "formUpdated": "Form details/structure updated",
+      "formUnpublished": "Form unpublished",
+      "formArchived": "Form archived",
+      "formRestored": "Form restored from archived state",
+      "fallback": "{{message}}"
+    },
+    "pagination": {
+      "showing": "Showing",
+      "to": "to",
+      "of": "of",
+      "logs": "logs",
+      "page": "Page"
+    }
   }
 }
