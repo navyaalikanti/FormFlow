@@ -79,14 +79,8 @@ export default function LoginCard() {
           {errors.password?.message && <p className="text-sm text-red-500">{errors.password.message}</p>}
         </div>
 
-        <div className="flex items-center justify-between text-sm">
-          <label className="flex items-center gap-2 text-slate-600 dark:text-slate-300">
-            <input type="checkbox" className="rounded border-slate-300 text-brand-500 focus:ring-brand-500" />
-            {t('common.rememberMe')}
-          </label>
-          <a href="#" className="font-medium text-brand-500 hover:text-brand-600">
-            {t('common.forgotPassword')}
-          </a>
+        <div className="text-sm text-center text-slate-500 dark:text-slate-400">
+          Demo Email: <span className="font-medium text-slate-700 dark:text-slate-300">navyaalikanti@gmail.com</span> <span className="mx-1">|</span> Demo Password: <span className="font-medium text-slate-700 dark:text-slate-300">Navya@12345</span>
         </div>
 
         {serverError && <p className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">{serverError}</p>}
