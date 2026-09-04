@@ -240,7 +240,7 @@ export default function LandingPage() {
       <main className="overflow-hidden">
         <section
           id="hero"
-          className="relative mx-auto max-w-7xl px-4 pb-12 pt-28 sm:px-6 sm:pt-32 lg:px-8 lg:pb-16 lg:pt-36"
+          className="relative mx-auto max-w-7xl px-4 pb-12 pt-36 sm:px-6 sm:pt-32 lg:px-8 lg:pb-16 lg:pt-36"
         >
           <div className="pointer-events-none absolute inset-0">
             <div className="hero-dots absolute inset-0 opacity-40 dark:opacity-20" />
@@ -300,7 +300,9 @@ export default function LandingPage() {
               </div>
             </div>
 
-            <HeroWorkflowIllustration />
+            <div className="hidden lg:block">
+              <HeroWorkflowIllustration />
+            </div>
           </div>
 
           <div className="mt-16 flex justify-center lg:mt-20">
